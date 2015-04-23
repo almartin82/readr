@@ -8,3 +8,17 @@ test_that("trailing spaces ommitted", {
   df <- read_fwf("fwf-trailing.txt", spec)
   expect_equal(df$X1, df$X2)
 })
+
+
+test_that("read_fwf correctly reads a text file from the web", {
+  test_url <- "http://www.nj.gov/education/schools/achievement/14/njask5/state_summary.txt"
+
+  ex <- read_fwf(
+    file = test_url,
+    col_positions = fwf_empty(test_url)
+  )
+
+  expect_equal(nrow(ex), 1860)
+  expect_equal(ncol(ex), 184)
+
+})
